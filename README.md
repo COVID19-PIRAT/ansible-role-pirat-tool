@@ -121,7 +121,15 @@ The following variables only matter, if `pirat_postgres_use_docker` is `true`:
     pirat_postgres_docker_image: postgres
     pirat_postgres_docker_image_tag: 12
     pirat_postgres_persistence: true
-    pirat_postgres_persistence_dir: /data/docker/pirat/postgres
+    pirat_postgres_persistence_dir: "{{ pirat_deployment_directory }}/postgres"
+
+*Note*: You have to ensure that `pirat_postgres_persistence_dir` exists!
+
+If you would like to map the database port, modify accordingly:
+
+    pirat_postgres_map_port: false
+    pirat_postgres_docker_listen_ip: 127.0.0.1
+    pirat_postgres_docker_listen_port: 5432
 
 If the container should map additional volumes to the host, you can list the mappings:
 

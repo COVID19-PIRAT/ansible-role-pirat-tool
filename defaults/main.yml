@@ -54,9 +54,12 @@ pirat_url: http://localhost
 pirat_postgres_use_docker: true
 pirat_postgres_docker_image: postgres
 pirat_postgres_docker_image_tag: 12
+pirat_postgres_map_port: false
+pirat_postgres_docker_listen_ip: 127.0.0.1
+pirat_postgres_docker_listen_port: 5432
 pirat_postgres_docker_dbname: "{{ pirat_database_dbname }}"
 pirat_postgres_docker_dbuser: "{{ pirat_database_user }}"
 pirat_postgres_docker_dbpassword: "{{ pirat_database_password }}"
 pirat_postgres_persistence: true
-pirat_postgres_persistence_dir: /data/docker/pirat/postgres
+pirat_postgres_persistence_dir: "{{ pirat_deployment_directory }}/postgres"
 pirat_postgres_docker_volumes: []

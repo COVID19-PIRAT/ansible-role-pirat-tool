@@ -71,8 +71,10 @@ services:
     image: {{ pirat_postgres_docker_image }}:{{ pirat_postgres_docker_image_tag }}
     networks:
       - database
+{% if pirat_postgres_map_port is sameas true %}
     ports:
-      - 127.0.0.1:5432:5432
+      - {{ pirat_postgres_docker_listen_ip }}:{{ pirat_postgres_docker_listen_port }}:5432
+{% endif %}
     environment:
       - POSTGRES_PASSWORD={{ pirat_postgres_docker_dbpassword }}
       - POSTGRES_USER={{ pirat_postgres_docker_dbuser }}

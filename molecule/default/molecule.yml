@@ -16,7 +16,7 @@ dependency:
 
 platforms:
   - name: instance
-    image: geerlingguy/docker-ubuntu1804-ansible
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest
     pre_build_image: true
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
@@ -30,37 +30,17 @@ provisioner:
     converge: converge.yml
 
 scenario:
-  create_sequence:
-    - dependency
-    - create
-    - prepare
-  check_sequence:
-    - dependency
-    - cleanup
-    - destroy
-    - create
-    - prepare
-    - converge
-    - check
-    - destroy
-  converge_sequence:
-    - dependency
-    - create
-    - prepare
-    - converge
-  destroy_sequence:
-    - dependency
-    - cleanup
-    - destroy
   test_sequence:
-    - dependency
     - lint
-    - cleanup
     - destroy
     - syntax
     - create
     - prepare
     - converge
     - verify
-    - cleanup
     - destroy
+
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

@@ -1,37 +1,30 @@
 ---
 
-- name: Prepare | install pip
+- name: Prepare | install dependencies
   hosts: all
   become: true
   tasks:
-    - name: install pip
-      apt:
-        package:
-          - python-pip
-          - docker-compose
+    - name: install dependencies (RedHat based systems)
+      yum:
+        name: "{{ packages }}"
         state: present
         update_cache: true
+      when: ansible_os_family == "RedHat"
+    - name: install dependencies(Debian based systems)
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+  vars:
+    packages:
+      - git
+      - curl
+      - python-pip
+      - docker-compose
 
 - name: Prepare | install docker
   hosts: all
   become: true
-  pre_tasks:
-    - name: Update apt cache.
-      apt:
-        update_cache: true
-        cache_valid_time: 600
-      when: ansible_os_family == 'Debian'
-
-    - name: Wait for systemd to complete initialization.
-      command: systemctl is-system-running
-      register: systemctl_status
-      until: >
-        'running' in systemctl_status.stdout or
-        'degraded' in systemctl_status.stdout
-      retries: 30
-      delay: 5
-      when: ansible_service_mgr == 'systemd'
-      changed_when: false
-      failed_when: systemctl_status.rc > 1
   roles:
     - geerlingguy.docker

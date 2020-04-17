@@ -4,3 +4,7 @@
   become: true
   roles:
     - dhach.pirat_tool
+  vars:
+    pirat_postgres_persistence: false
+    pirat_backend_docker_map_port: false
+    pirat_database_password: FIND_ME

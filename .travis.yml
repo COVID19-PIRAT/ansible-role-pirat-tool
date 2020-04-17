@@ -7,9 +7,17 @@ services:
 env:
   global:
     - ROLE_NAME=pirat_tool
+  matrix:
+    - MOLECULE_DISTRO: centos8
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: ubuntu1604
+    - MOLECULE_DISTRO: debian10
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: fedora31
 
 install:
-  - python -m pip -q install molecule yamllint ansible-lint docker
+  - python -m pip -q install -r test-requirements.txt
 
 before_script:
   - cd ../

@@ -20,7 +20,7 @@
     packages:
       - git
       - curl
-      - python-pip
+      - python3-pip
       - docker-compose
 
 - name: Prepare | install docker

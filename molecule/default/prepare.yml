@@ -21,10 +21,14 @@
       - git
       - curl
       - python3-pip
-      - docker-compose
 
 - name: Prepare | install docker
   hosts: all
   become: true
   roles:
     - geerlingguy.docker
+  vars:
+    docker_install_compose: true
+    docker_service_state: stopped
+    docker_restart_handler_state: stopped
+    docker_service_enabled: false

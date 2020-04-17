@@ -16,18 +16,13 @@
         state: present
         update_cache: true
       when: ansible_os_family == "Debian"
-    - name: install dependencies with pip
-      pip:
-        name: "{{ pip_packages }}"
-        state: present
   vars:
-    pip_packages:
-      - docker-compose
     packages:
       - git
       - curl
       - gcc
       - python3-pip
+      - docker-compose
 
 - name: Prepare | install docker
   hosts: all

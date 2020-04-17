@@ -19,18 +19,12 @@ def test_pirat_images_present(host):
         image_present = host.run("docker image history {0}:stable".format(img))
         assert image_present.rc == 0
 
-def get_docker_containers():
-    containers = host.run('docker ps -a')
-    print(containers.stdout)
-    assert true
+# def test_pirat_service_running(host):
+#     pirat_Service = host.service('pirat')
+#     assert pirat_service.is_running
 
-def test_pirat_service_running(host):
-    gitea = host.service('pirat')
-    assert gitea.is_running
-
-
-def test_pirat_reachable(host):
-    endpoints = [ 'http://localhost:8081', 'http://localhost:5000' ]
-    for e in endpoints:
-        http_curl = host.run('curl {0}'.format(e))
-        assert http_curl.rc == 0
+# def test_pirat_reachable(host):
+#     endpoints = [ 'http://localhost:8081', 'http://localhost:5000' ]
+#     for e in endpoints:
+#         http_curl = host.run('curl {0}'.format(e))
+#         assert http_curl.rc == 0

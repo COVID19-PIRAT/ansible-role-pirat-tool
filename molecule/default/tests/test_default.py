@@ -19,6 +19,10 @@ def test_pirat_images_present(host):
         image_present = host.run("docker image history {0}:stable".format(img))
         assert image_present.rc == 0
 
+def get_docker_containers():
+    containers = host.run('docker ps -a')
+    print(containers.stdout)
+    assert true
 
 def test_pirat_service_running(host):
     gitea = host.service('pirat')
